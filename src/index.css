@@ -7,7 +7,13 @@ ul {
 img {
   width: 300px;
   height: 300px;
+  object-fit: cover;
 }
 li {
   margin: 50px 20px;
+}
+.loading {
+  text-align: center;
+  font-size: 50px;
+  margin-top: 45vh;
 }
