@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
 
 function App() {
+  const [images, setImages] = useState([]);
+  const [error, setError] = useState([]);
+  useEffect(() => {
+    const url = "https://restcountries.com/v2/all";
+    try {
+      const fetchData = async () => {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("field to fetch Please Reload");
+        }
+        const result = await response.json();
+        console.log(result);
+
+        setImages(result);
+      };
+      fetchData();
+    } catch (error) {
+      setError(error);
+    }
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ul>
+        {images.map((img) => (
+          <li key={img.alpha2Code}>
+            <img src={img.flag}></img>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
