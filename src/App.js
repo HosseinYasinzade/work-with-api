@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import Lists from "./Lists";
 
 function App() {
   const [images, setImages] = useState([]);
-  const [error, setError] = useState([]);
+  const [errors, setError] = useState([]);
+
   useEffect(() => {
     const url = "https://restcountries.com/v2/all";
+
     try {
       const fetchData = async () => {
         const response = await fetch(url);
@@ -23,13 +26,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <ul>
-        {images.map((img) => (
-          <li key={img.alpha2Code}>
-            <img src={img.flag}></img>
-          </li>
-        ))}
-      </ul>
+      {!errors ? <p>errors.message</p> : <Lists images={images} />}
     </div>
   );
 }
